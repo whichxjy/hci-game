@@ -1,0 +1,42 @@
+{
+    "env": {
+        "browser": true,
+        "es2020": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "p5js",
+        "p5js/dom",
+        "p5js/sound"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 11
+    },
+    "rules": {
+        "indent": [
+            "error",
+            2
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            "error",
+            "double"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "no-unused-vars": [
+            "error",
+            {
+                "vars": "local"
+            }
+        ],
+        "no-undef": [
+            "off"
+        ]
+    }
+}
