@@ -4,7 +4,14 @@ let pose;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  setupPose();
+}
 
+function draw() {
+  drawPose();
+}
+
+function setupPose() {
   video = createCapture(VIDEO);
   video.hide();
 
@@ -14,16 +21,14 @@ function setup() {
     console.log("poseNet ready");
   });
 
-  poseNet.on("pose", handlePoses);
+  poseNet.on("pose", (poses) => {
+    if (poses.length > 0) {
+      pose = poses[0].pose;
+    }
+  });
 }
 
-function handlePoses(poses) {
-  if (poses.length > 0) {
-    pose = poses[0].pose;
-  }
-}
-
-function draw() {
+function drawPose() {
   push();
   translate(windowWidth, 0);
   scale(-1, 1);
