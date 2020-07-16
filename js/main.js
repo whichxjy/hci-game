@@ -2,13 +2,16 @@ let video;
 let poseNet;
 let pose;
 
+let system;
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  setupPose();
+  const resolution = 20;
+  system = new FlowFieldSystem(resolution);
 }
 
 function draw() {
-  drawPose();
+  system.run();
 }
 
 function setupPose() {
