@@ -27,7 +27,7 @@ function FlowField(resolution) {
   this.lookup = (position) => {
     const row = Math.floor(constrain(position.y / this.resolution, 0, this.rowNum - 1));
     const col = Math.floor(constrain(position.x / this.resolution, 0, this.colNum - 1));
-    return this.field[row][col];
+    return this.field[row][col].copy();
   };
 
   this.checkBorders = (monster) => {

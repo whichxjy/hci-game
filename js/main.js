@@ -6,8 +6,18 @@ let system;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+
+  let monsters = [];
+
+  const position = createVector(random(windowWidth), random(windowHeight));
+  const velocity = createVector(0, 0);
+  const size = 30;
+  const maxForce = random(15, 30);
+  const maxSpeed = random(15, 30);
+  monsters.push(new Monster(position, velocity, size, maxForce, maxSpeed));
+
   const resolution = 20;
-  system = new FlowFieldSystem(resolution);
+  system = new FlowFieldSystem(monsters, resolution);
 }
 
 function draw() {
