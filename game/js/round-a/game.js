@@ -35,7 +35,7 @@ function RoundA() {
       const size = 40;
       const maxForce = random(5, 10);
       const maxSpeed = random(5, 10);
-      monsters.push(new Monster(position, velocity, size, maxForce, maxSpeed));
+      monsters.push(new TriMonster(position, velocity, size, maxForce, maxSpeed));
     }
 
     const resolution = 20;
