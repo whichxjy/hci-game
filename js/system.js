@@ -24,4 +24,6 @@ function FlowFieldSystem(monsters, resolution) {
       this.monsters[i].display();
     }
   };
+
+  this.reset = () => this.flowField = new FlowField(resolution);
 }

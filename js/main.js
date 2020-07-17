@@ -16,7 +16,7 @@ function setup() {
 
   monsters = [];
 
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 5; i++) {
     const position = createVector(random(windowWidth), random(windowHeight));
     const velocity = createVector(0, 0);
     const size = 40;
@@ -47,6 +47,10 @@ function init() {
       pose = poses[0].pose;
     }
   });
+
+  setInterval(() => {
+    system.reset();
+  }, 1500);
 }
 
 
