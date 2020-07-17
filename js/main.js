@@ -7,10 +7,12 @@ let system;
 let widthScale;
 let heightScale;
 
+let monsters;
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
-  let monsters = [];
+  monsters = [];
 
   const position = createVector(random(windowWidth), random(windowHeight));
   const velocity = createVector(0, 0);
@@ -52,7 +54,6 @@ function drawPose() {
   push();
   translate(windowWidth, 0);
   scale(-1, 1);
-  image(video, 0, 0, windowWidth, windowHeight);
   pop();
 
   if (pose) {
@@ -63,5 +64,13 @@ function drawPose() {
     player.display();
     leftController.display();
     rightController.display();
+
+    for (let i = 0; i < monsters.length; i++) {
+      monsters[i].chase(player);
+
+      if (leftController.hit(monsters[i]) || rightController.hit(monsters[i])) {
+        monsters[i].die();
+      }
+    }
   }
 }

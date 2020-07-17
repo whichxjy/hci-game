@@ -5,6 +5,7 @@ function Monster(position, velocity, size, maxForce, maxSpeed) {
   this.acceleration = createVector(0, 0);
   this.maxForce = maxForce;
   this.maxSpeed = maxSpeed;
+  this.dead = false;
 
   this.follow = (flowField) => {
     const desired = flowField.lookup(this.position);
@@ -14,11 +15,20 @@ function Monster(position, velocity, size, maxForce, maxSpeed) {
     this.applyForce(steer);
   };
 
+  this.chase = (player) => {
+    const force = createVector(player.x(), player.y()) - this.position;
+    this.applyForce(force);
+  };
+
   this.applyForce = (force) => {
     this.acceleration.add(force);
   };
 
   this.update = () => {
+    if (this.dead) {
+      return;
+    }
+
     this.velocity.add(this.acceleration);
     this.velocity.limit(this.maxSpeed);
     this.position.add(this.velocity);
@@ -26,6 +36,10 @@ function Monster(position, velocity, size, maxForce, maxSpeed) {
   };
 
   this.display = () => {
+    if (this.dead) {
+      return;
+    }
+
     const theta = this.velocity.heading();
     push();
     fill(164, 165, 139);
@@ -39,5 +53,9 @@ function Monster(position, velocity, size, maxForce, maxSpeed) {
     vertex(-this.size / 2, -this.size / 3);
     endShape();
     pop();
+  };
+
+  this.die = () => {
+    this.dead = true;
   };
 }
