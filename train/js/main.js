@@ -1,8 +1,5 @@
 let video;
 
-let widthScale;
-let heightScale;
-
 let pose;
 let skeleton;
 
@@ -23,9 +20,6 @@ function setup() {
 
   const poseNet = ml5.poseNet(video, { flipHorizontal: true, detectionType: "single" }, () => {
     console.log("poseNet ready");
-
-    widthScale = windowWidth / video.width;
-    heightScale = windowHeight / video.height;
   });
 
   poseNet.on("pose", (poses) => {
