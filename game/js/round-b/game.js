@@ -1,4 +1,6 @@
 function RoundB() {
+  let isOver = false;
+
   const video = createCapture(VIDEO);
   video.hide();
   const showVideo = false;
@@ -16,7 +18,15 @@ function RoundB() {
       const size = 40;
       const maxForce = random(5, 10);
       const maxSpeed = random(5, 10);
-      const char = "A";
+
+      let char;
+
+      if (i % 2 === 0) {
+        char = "A";
+      } else {
+        char = "C";
+      }
+
       monsters.push(new CharMonster(position, velocity, size, maxForce, maxSpeed, char));
     }
 
@@ -32,7 +42,7 @@ function RoundB() {
   }, 3000);
 
   let pose;
-  let poseLabel = "A";
+  let poseLabel = "X";
 
   const poseNet = ml5.poseNet(video, { flipHorizontal: true, detectionType: "single" }, () => {
     console.log("poseNet ready");
@@ -68,6 +78,10 @@ function RoundB() {
   });
 
   this.classifyPose = () => {
+    if (isOver) {
+      return;
+    }
+
     if (pose) {
       let inputs = [];
 
@@ -92,6 +106,10 @@ function RoundB() {
   };
 
   this.draw = () => {
+    if (isOver) {
+      return;
+    }
+
     console.log(poseLabel);
 
     background(255);
@@ -130,13 +148,16 @@ function RoundB() {
 
         allDead = false;
 
+        if (poseLabel === monsters[i].char) {
+          monsters[i].die();
+        }
+
         if (!monsters[i].dead && monsters[i].hit(player)) {
           isOver = true;
         }
       }
 
       if (allDead) {
-        monsterNum += 1;
         system = this.getSystem();
       }
     }
