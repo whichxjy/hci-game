@@ -23,11 +23,11 @@ function TriMonster(position, velocity, size, maxForce, maxSpeed) {
 
   this.hit = (player) => {
     const playerTopLeft = createVector(player.x() - player.size / 2, player.y() - player.size / 2);
-    const playerBottomRight = createVector(player.x() + player.size / 2, player.y() + player.size / 2);
+
     return collidePointRect(
       this.position.x, this.position.y,
       playerTopLeft.x, playerTopLeft.y,
-      playerBottomRight.x, playerBottomRight.y
+      player.size, player.size
     );
   };
 }
