@@ -1,4 +1,4 @@
-function Game() {
+function RoundA() {
   let isOver = false;
 
   const video = createCapture(VIDEO);

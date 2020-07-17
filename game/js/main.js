@@ -2,7 +2,7 @@ let game;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  game = new Game();
+  game = new RoundB();
 }
 
 function draw() {
