@@ -1,4 +1,6 @@
 function Game() {
+  let isOver = false;
+
   const video = createCapture(VIDEO);
   video.hide();
   const showVideo = false;
@@ -48,6 +50,10 @@ function Game() {
   }, 3000);
 
   this.draw = () => {
+    if (isOver) {
+      return;
+    }
+
     if (showVideo) {
       push();
       translate(windowWidth, 0);
@@ -78,6 +84,10 @@ function Game() {
 
         if (leftController.hit(monsters[i]) || rightController.hit(monsters[i])) {
           monsters[i].die();
+        }
+
+        if (!monsters[i].dead && monsters[i].hit(player)) {
+          isOver = true;
         }
       }
 

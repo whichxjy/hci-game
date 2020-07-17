@@ -9,7 +9,8 @@ function Controller(target, widthScale, heightScale) {
 
   this.display = () => {
     push();
-    fill(0, 0, 255);
+    fill(86, 101, 115);
+    strokeWeight(4);
     ellipse(this.x(), this.y(), this.size);
     pop();
   };
