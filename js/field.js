@@ -54,9 +54,9 @@ function FlowField(resolution) {
   };
 
   this.drawVector = (row, col) => {
+    push();
     stroke(91, 166, 247);
     strokeWeight(4);
-    push();
     translate(col * resolution, row * resolution);
     rotate(this.field[row][col].heading());
     const drawScale = 0.9 * resolution;

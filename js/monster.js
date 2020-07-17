@@ -27,10 +27,10 @@ function Monster(position, velocity, size, maxForce, maxSpeed) {
 
   this.display = () => {
     const theta = this.velocity.heading();
+    push();
     fill(164, 165, 139);
     stroke(0);
     strokeWeight(4);
-    push();
     translate(this.position.x, this.position.y);
     rotate(theta);
     beginShape(TRIANGLES);

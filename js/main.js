@@ -4,9 +4,6 @@ let pose;
 
 let system;
 
-let leftController;
-let rightController;
-
 let widthScale;
 let heightScale;
 
@@ -59,12 +56,11 @@ function drawPose() {
   pop();
 
   if (pose) {
-    fill(255, 0, 0);
-    ellipse(pose.nose.x * widthScale, pose.nose.y * heightScale, 32);
+    const player = new Player(pose.nose, widthScale, heightScale);
+    const leftController = new Controller(pose.leftWrist, widthScale, heightScale);
+    const rightController = new Controller(pose.rightWrist, widthScale, heightScale);
 
-    leftController = new Controller(pose.leftWrist, widthScale, heightScale);
-    rightController = new Controller(pose.rightWrist, widthScale, heightScale);
-
+    player.display();
     leftController.display();
     rightController.display();
   }
