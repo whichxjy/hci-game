@@ -45,7 +45,7 @@ function setup() {
 
   brain = ml5.neuralNetwork({
     inputs: 34,
-    outputs: 4,
+    outputs: 2,
     task: "classification",
     debug: true
   });

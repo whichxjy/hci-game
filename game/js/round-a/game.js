@@ -1,5 +1,6 @@
-function RoundA() {
+function RoundA(callback) {
   let isOver = false;
+  this.callback = callback;
 
   const video = createCapture(VIDEO);
   video.hide();
@@ -88,6 +89,7 @@ function RoundA() {
 
         if (!monsters[i].dead && monsters[i].hit(player)) {
           isOver = true;
+          this.callback();
         }
       }
 
