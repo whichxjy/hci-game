@@ -9,30 +9,29 @@ let heightScale;
 
 let monsters;
 
+const showVideo = false;
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
   monsters = [];
 
-  const position = createVector(random(windowWidth), random(windowHeight));
-  const velocity = createVector(0, 0);
-  const size = 30;
-  const maxForce = random(15, 30);
-  const maxSpeed = random(15, 30);
-  monsters.push(new Monster(position, velocity, size, maxForce, maxSpeed));
+  for (let i = 0; i < 10; i++) {
+    const position = createVector(random(windowWidth), random(windowHeight));
+    const velocity = createVector(0, 0);
+    const size = 40;
+    const maxForce = random(5, 10);
+    const maxSpeed = random(5, 10);
+    monsters.push(new Monster(position, velocity, size, maxForce, maxSpeed));
+  }
 
   const resolution = 20;
   system = new FlowFieldSystem(monsters, resolution);
 
-  setupPose();
+  init();
 }
 
-function draw() {
-  system.run();
-  drawPose();
-}
-
-function setupPose() {
+function init() {
   video = createCapture(VIDEO);
   video.hide();
 
@@ -50,24 +49,28 @@ function setupPose() {
   });
 }
 
-function drawPose() {
-  push();
-  translate(windowWidth, 0);
-  scale(-1, 1);
-  pop();
+
+function draw() {
+  if (showVideo) {
+    push();
+    translate(windowWidth, 0);
+    scale(-1, 1);
+    image(video, 0, 0, windowWidth, windowHeight);
+    pop();
+  }
 
   if (pose) {
     const player = new Player(pose.nose, widthScale, heightScale);
     const leftController = new Controller(pose.leftWrist, widthScale, heightScale);
     const rightController = new Controller(pose.rightWrist, widthScale, heightScale);
 
+    system.run(player);
+
     player.display();
     leftController.display();
     rightController.display();
 
     for (let i = 0; i < monsters.length; i++) {
-      monsters[i].chase(player);
-
       if (leftController.hit(monsters[i]) || rightController.hit(monsters[i])) {
         monsters[i].die();
       }

@@ -16,7 +16,9 @@ function Monster(position, velocity, size, maxForce, maxSpeed) {
   };
 
   this.chase = (player) => {
-    const force = createVector(player.x(), player.y()) - this.position;
+    const playerPosition = createVector(player.x(), player.y());
+    const force = p5.Vector.sub(playerPosition, this.position);
+    force.limit(maxForce / 3);
     this.applyForce(force);
   };
 
