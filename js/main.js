@@ -4,6 +4,12 @@ let pose;
 
 let system;
 
+let leftController;
+let rightController;
+
+let widthScale;
+let heightScale;
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
@@ -18,20 +24,24 @@ function setup() {
 
   const resolution = 20;
   system = new FlowFieldSystem(monsters, resolution);
+
+  setupPose();
 }
 
 function draw() {
   system.run();
+  drawPose();
 }
 
 function setupPose() {
   video = createCapture(VIDEO);
   video.hide();
 
-  console.log(video.height);
-
   poseNet = ml5.poseNet(video, { flipHorizontal: true, detectionType: "single" }, () => {
     console.log("poseNet ready");
+
+    widthScale = windowWidth / video.width;
+    heightScale = windowHeight / video.height;
   });
 
   poseNet.on("pose", (poses) => {
@@ -48,14 +58,14 @@ function drawPose() {
   image(video, 0, 0, windowWidth, windowHeight);
   pop();
 
-  const widthScale = windowWidth / video.width;
-  const heightScale = windowHeight / video.height;
-
   if (pose) {
     fill(255, 0, 0);
     ellipse(pose.nose.x * widthScale, pose.nose.y * heightScale, 32);
-    fill(0, 0, 255);
-    ellipse(pose.leftWrist.x * widthScale, pose.leftWrist.y * heightScale, 32);
-    ellipse(pose.rightWrist.x * widthScale, pose.rightWrist.y * heightScale, 32);
+
+    leftController = new Controller(pose.leftWrist, widthScale, heightScale);
+    rightController = new Controller(pose.rightWrist, widthScale, heightScale);
+
+    leftController.display();
+    rightController.display();
   }
 }
