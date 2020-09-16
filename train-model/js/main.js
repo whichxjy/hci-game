@@ -53,8 +53,10 @@ function setup() {
 
 function keyPressed() {
   if (keyCode === 32) {
+    // space key
     brain.saveData();
   } else if (keyCode === 13) {
+    // enter key
     brain.normalizeData();
     brain.train({ epochs: 50 }, () => {
       console.log("Model trained");

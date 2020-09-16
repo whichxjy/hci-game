@@ -4,7 +4,7 @@ function RoundA(callback) {
 
   const video = createCapture(VIDEO);
   video.hide();
-  const showVideo = false;
+  const showVideo = true;
 
   let pose;
   let widthScale;
@@ -35,7 +35,7 @@ function RoundA(callback) {
       const velocity = createVector(0, 0);
       const size = 40;
       const maxForce = random(5, 10);
-      const maxSpeed = random(5, 10);
+      const maxSpeed = random(2, 5);
       monsters.push(new TriMonster(position, velocity, size, maxForce, maxSpeed));
     }
 
@@ -53,14 +53,6 @@ function RoundA(callback) {
   this.draw = () => {
     if (isOver) {
       return;
-    }
-
-    if (showVideo) {
-      push();
-      translate(windowWidth, 0);
-      scale(-1, 1);
-      image(video, 0, 0, windowWidth, windowHeight);
-      pop();
     }
 
     if (pose) {
@@ -97,6 +89,14 @@ function RoundA(callback) {
         monsterNum += 1;
         system = this.getSystem();
       }
+    }
+
+    if (showVideo) {
+      push();
+      translate(windowWidth, 0);
+      scale(-1, 1);
+      image(video, 0, 0, windowWidth * 0.1, windowHeight * 0.1);
+      pop();
     }
   };
 }

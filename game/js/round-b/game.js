@@ -3,9 +3,9 @@ function RoundB() {
 
   const video = createCapture(VIDEO);
   video.hide();
-  const showVideo = false;
+  const showVideo = true;
 
-  let monsterNum = 2;
+  let monsterNum = 4;
 
   const monsters = [];
 
@@ -17,14 +17,16 @@ function RoundB() {
       const velocity = createVector(0, 0);
       const size = 40;
       const maxForce = random(5, 10);
-      const maxSpeed = random(5, 10);
+      const maxSpeed = random(2, 5);
 
       let char;
 
       if (i % 2 === 0) {
         char = "A";
-      } else {
+      } else if (i % 3 === 0) {
         char = "C";
+      } else {
+        char = "Y";
       }
 
       monsters.push(new CharMonster(position, velocity, size, maxForce, maxSpeed, char));
@@ -114,24 +116,6 @@ function RoundB() {
 
     background(255);
 
-    if (showVideo) {
-      push();
-      translate(video.width, 0);
-      scale(-1, 1);
-      image(video, 0, 0);
-      pop();
-
-      if (pose) {
-        for (let i = 0; i < pose.keypoints.length; i++) {
-          let x = pose.keypoints[i].position.x;
-          let y = pose.keypoints[i].position.y;
-          fill(0);
-          stroke(255);
-          ellipse(x, y, 16, 16);
-        }
-      }
-    }
-
     if (pose) {
       const player = new Player(pose.nose, widthScale, heightScale);
 
@@ -160,6 +144,14 @@ function RoundB() {
       if (allDead) {
         system = this.getSystem();
       }
+    }
+
+    if (showVideo) {
+      push();
+      translate(windowWidth, 0);
+      scale(-1, 1);
+      image(video, 0, 0, windowWidth * 0.1, windowHeight * 0.1);
+      pop();
     }
   };
 }
